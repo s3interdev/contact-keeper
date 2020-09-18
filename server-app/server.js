@@ -16,3 +16,7 @@ app.listen(PORT, () => console.log(`Express server started on port ${PORT}...`))
 app.get('/', (req, res) => {
 	res.json({ msg: 'Hello, welcome to the Contact Keeper API...' });
 });
+
+app.use('/api/users', require('./routes/users'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/contacts', require('./routes/contacts'));
