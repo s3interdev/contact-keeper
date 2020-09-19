@@ -1,3 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://s3interdev:Pass@word8475@cluster-s3-00.7z9kh.gcp.mongodb.net/contact-keeper?retryWrites=true&w=majority"
+	"mongoURI": "mongodb+srv://s3interdev:Pass@word8475@cluster-s3-00.7z9kh.gcp.mongodb.net/contact-keeper?retryWrites=true&w=majority",
+	"jwtSecret": "2RGa18Za2!B&pT2n!Rdqa@ypZsXt@Ci2"
 }

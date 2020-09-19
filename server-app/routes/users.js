@@ -2,6 +2,8 @@ const { Router } = require('express');
 const router = Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const User = require('../models/User');
 
 /*  route       -> POST /api/users
@@ -40,7 +42,18 @@ router.post(
 
 			// save the user to the database
 			await user.save();
-			res.send('User successfully created...');
+
+			// create the Json web token
+			const payload = { user: { id: user.id } };
+			const maximumAge = 3600; // value of 1 hour
+
+			jwt.sign(payload, config.get('jwtSecret'), { expiresIn: maximumAge }, (err, token) => {
+				if (err) {
+					throw err;
+				} else {
+					res.json({ token });
+				}
+			});
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send('There has been an unfortunate server error.');
