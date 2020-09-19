@@ -24,8 +24,27 @@ router.get('/', auth, async (req, res) => {
     description -> Add new contact for the logged in user
     access      -> Private
 */
-router.post('/', (req, res) => {
-	res.send('Add new contact for the user...');
+router.post('/', [auth, [check('name', 'Name is a required filed.').not().isEmpty()]], async (req, res) => {
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		return res, status(400).json({ errors: errors.array() });
+	}
+
+	const { name, email, phone, type } = req.body;
+
+	try {
+		const newContact = new Contact({ name, email, phone, type, user: req.user.id });
+
+		// save contact to database
+		const contact = await newContact.save();
+
+		// return result to client
+		res.json(contact);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('There has been an unfortunate server error.');
+	}
 });
 
 /*  route       -> PUT /api/contacts/:id
