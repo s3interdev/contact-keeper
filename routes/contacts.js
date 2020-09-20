@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const router = Router();
 const { check, validationResult } = require('express-validator');
-const User = require('../models/User');
 const Contact = require('../models/Contact');
 const auth = require('../middleware/auth');
 
@@ -65,16 +64,14 @@ router.put('/:id', auth, async (req, res) => {
 	try {
 		let contact = await Contact.findById(req.params.id);
 
-		if (!contact) {
-			return res.status(404).json({ msg: 'The contact does not exist.' });
-		}
+		if (!contact) return res.status(404).json({ msg: 'The contact does not exist.' });
 
 		// ensure user owns the contact
 		if (contact.user.toString() !== req.user.id) {
 			return res.status(401).json({ msg: 'You are not authorized to edit this contact.' });
 		}
 
-		contact = await Contact.findOneAndUpdate(req.params.id, { $set: contactFields }, { new: true });
+		contact = await Contact.findByIdAndUpdate(req.params.id, { $set: contactFields }, { new: true });
 		res.json(contact);
 	} catch (err) {
 		console.error(err.message);
@@ -90,9 +87,7 @@ router.delete('/:id', auth, async (req, res) => {
 	try {
 		let contact = await Contact.findById(req.params.id);
 
-		if (!contact) {
-			return res.status(404).json({ msg: 'The contact does not exist.' });
-		}
+		if (!contact) return res.status(404).json({ msg: 'The contact does not exist.' });
 
 		// ensure user owns the contact
 		if (contact.user.toString() !== req.user.id) {
