@@ -1,2 +1,14 @@
 # dependancy directory
 node_modules/
+/client-app/node_modules
+
+# misc
+/client-app/.DS_Store
+/client-app/.env.local
+/client-app/.env.development.local
+/client-app/.env.test.local
+/client-app/.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
