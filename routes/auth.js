@@ -42,13 +42,13 @@ router.post(
 			let user = await User.findOne({ email });
 
 			if (!user) {
-				return res.status(400).json({ msg: 'The email provided is not valid.' });
+				return res.status(400).json({ msg: 'The credentials you have entered are not valid.' });
 			}
 
 			const isMatch = await bcrypt.compare(password, user.password);
 
 			if (!isMatch) {
-				return res.status(400).json({ msg: 'The password provided is not valid.' });
+				return res.status(400).json({ msg: 'The credentials you have entered are not valid.' });
 			}
 
 			// create the Json web token

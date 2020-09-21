@@ -10,6 +10,7 @@ export default (state, action) => {
 				user: action.payload,
 			};
 		case SIGNUP_SUCCESS:
+		case SIGNIN_SUCCESS:
 			localStorage.setItem('token', action.payload.token);
 			return {
 				...state,
@@ -19,6 +20,7 @@ export default (state, action) => {
 			};
 		case SIGNUP_FAIL:
 		case AUTH_ERROR:
+		case SIGNIN_FAIL:
 			localStorage.removeItem('token');
 			return {
 				...state,
