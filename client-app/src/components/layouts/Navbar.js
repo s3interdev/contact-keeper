@@ -16,7 +16,7 @@ const Navbar = ({ title, icon }) => {
 			<li>Hello {user && user.name}</li>
 			<li>
 				<a onClick={onSignOut} href='#!'>
-					<i className='fas fa-sign-out-alt'></i> <span className='hide-sm'>Sign Out</span>
+					<i className='fas fa-sign-out-alt' /> <span className='hide-sm'>Sign Out</span>
 				</a>
 			</li>
 		</Fragment>
@@ -38,9 +38,11 @@ const Navbar = ({ title, icon }) => {
 
 	return (
 		<div className='navbar bg-primary'>
-			<h1>
-				<i className={icon} /> {title}
-			</h1>
+			<h2>
+				<Link to='/'>
+					<i className={icon} /> {title}
+				</Link>
+			</h2>
 			<ul>{isAuthenticated ? authLinks : guestLinks}</ul>
 		</div>
 	);
