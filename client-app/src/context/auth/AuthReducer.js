@@ -2,6 +2,13 @@ import { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR, SIGNIN_SUCCESS, S
 
 export default (state, action) => {
 	switch (action.type) {
+		case USER_LOADED:
+			return {
+				...state,
+				isAuthenticated: true,
+				loading: false,
+				user: action.payload,
+			};
 		case SIGNUP_SUCCESS:
 			localStorage.setItem('token', action.payload.token);
 			return {
@@ -11,6 +18,7 @@ export default (state, action) => {
 				loading: false,
 			};
 		case SIGNUP_FAIL:
+		case AUTH_ERROR:
 			localStorage.removeItem('token');
 			return {
 				...state,

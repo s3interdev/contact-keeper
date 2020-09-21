@@ -6,10 +6,16 @@ import About from './components/pages/About';
 import SignUp from './components/auth/SignUp';
 import SignIn from './components/auth/SignIn';
 import Alerts from './components/layouts/Alerts';
+import SetAuthToken from './utils/SetAuthToken';
 import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
 import './App.css';
+
+// load token into global headers
+if (localStorage.token) {
+	SetAuthToken(localStorage.token);
+}
 
 const App = () => {
 	return (

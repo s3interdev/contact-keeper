@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './AuthContext';
 import AuthReducer from './AuthReducer';
+import SetAuthToken from '../../utils/SetAuthToken';
 import { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR, SIGNIN_SUCCESS, SIGNIN_FAIL, SIGNOUT, CLEAR_ERRORS } from '../Types';
 
 // create initial state
@@ -17,7 +18,20 @@ const AuthState = (props) => {
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
 
 	// load user
-	const loadUser = () => console.log('Load user...');
+	const loadUser = async () => {
+		// load token into global headers
+		if (localStorage.token) {
+			SetAuthToken(localStorage.token);
+		}
+
+		try {
+			const res = await axios.get('/api/auth');
+
+			dispatch({ type: USER_LOADED, payload: res.data });
+		} catch (err) {
+			dispatch({ type: AUTH_ERROR });
+		}
+	};
 
 	// sign up user
 	const signUp = async (formData) => {
@@ -27,6 +41,7 @@ const AuthState = (props) => {
 			const res = await axios.post('/api/users', formData, config);
 
 			dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
+			loadUser();
 		} catch (err) {
 			dispatch({ type: SIGNUP_FAIL, payload: err.response.data.msg });
 		}
