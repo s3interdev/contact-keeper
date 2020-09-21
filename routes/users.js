@@ -30,7 +30,7 @@ router.post(
 			let user = await User.findOne({ email });
 
 			if (user) {
-				return res.sta(400).json({ msg: 'User with the email aready exists.' });
+				return res.status(400).json({ msg: 'User with the email aready exists.' });
 			}
 
 			user = new User({ name, email, password });
