@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
+import SignUp from './components/auth/SignUp';
+import SignIn from './components/auth/SignIn';
 import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import './App.css';
@@ -18,6 +20,8 @@ const App = () => {
 							<Switch>
 								<Route exact path='/' component={Home} />
 								<Route exact path='/about' component={About} />
+								<Route exact path='/signup' component={SignUp} />
+								<Route exact path='/signin' component={SignIn} />
 							</Switch>
 						</div>
 					</Fragment>
