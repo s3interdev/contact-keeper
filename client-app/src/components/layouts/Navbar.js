@@ -38,11 +38,11 @@ const Navbar = ({ title, icon }) => {
 
 	return (
 		<div className='navbar bg-primary'>
-			<h2>
+			<h3>
 				<Link to='/'>
 					<i className={icon} /> {title}
 				</Link>
-			</h2>
+			</h3>
 			<ul>{isAuthenticated ? authLinks : guestLinks}</ul>
 		</div>
 	);
